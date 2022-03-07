@@ -1,0 +1,27 @@
+@import "../../styles/theme.scss";
+
+.homeSection h1 {
+  color: $blueText;
+  text-align: center;
+}
+
+.homeSection h2 {
+  color: $blueText;
+  margin-bottom: 60px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.homeSection div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+hr {
+  margin-left: -20px;
+  border: none;
+  height: 1px;
+  color: $grey;
+  background-color: $grey;
+}

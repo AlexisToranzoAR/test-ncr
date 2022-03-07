@@ -1,0 +1,23 @@
+.appLayoutDiv {
+  display: grid;
+  height: 100vh;
+  place-items: center;
+}
+.appLayoutMain {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  position: relative;
+  height: 768px;
+  width: 1024px;
+}
+@media (min-width: 1024px) {
+  .appLayoutMain {
+    height: 768px;
+    width: 1024px;
+    border-radius: 10px;
+  }
+}

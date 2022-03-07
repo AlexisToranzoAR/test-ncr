@@ -1,0 +1,13 @@
+@import "../../styles/theme.scss";
+
+header {
+  background-color: $primary;
+  padding: 30px;
+}
+
+.childrenContainer {
+  background-color: $secondary;
+  height: 100%;
+  padding: 20px;
+  position: relative;
+}
