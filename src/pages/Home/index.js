@@ -1,50 +1,24 @@
 import "./Home.scss";
 import Header from "../../components/Header";
 import AccountButton from "../../components/AccountButton";
-import { useEffect, useState } from "react";
-import { getAtmData } from "../../services/atm";
 import Button from "../../components/Button";
+import useAtm from "../../hooks/useAtm";
 
 export default function Home() {
-  const [atmData, setAtmData] = useState({});
-  const [atmAccountsToShow, setAccountsToShow] = useState([]);
-  const [showMoreButton, setShowMoreButton] = useState(true);
-
-  function filterAccountsWithoutType({ cuentas, tipos }) {
-    return cuentas.filter((account) =>
-      tipos.find((type) => type.id === account.type)
-    );
-  }
-
-  function formatAccountToAddTheTypeInformation({ cuentas, tipos }) {
-    return cuentas.map((account) => {
-      account.type = tipos.find((type) => type.id === account.type).nombre;
-      return account;
-    });
-  }
+  const { atmData, setPage, showMoreButton } = useAtm();
 
   function handleShowMoreOptions() {
-    setAccountsToShow(atmData.cuentas.slice(5, 10));
-    setShowMoreButton(false);
+    setPage((prevState) => prevState + 1);
   }
 
   function handleShowInitialOptions() {
-    setAccountsToShow(atmData.cuentas.slice(0, 5));
-    setShowMoreButton(true);
+    setPage((prevState) => {
+      if (prevState > 1) {
+        return prevState - 1;
+      }
+      return prevState;
+    });
   }
-
-  async function getAtmDataFromAPI() {
-    const response = await getAtmData();
-    const { data } = response;
-    data.cuentas = filterAccountsWithoutType(response.data);
-    data.cuentas = formatAccountToAddTheTypeInformation(data);
-    setAtmData(data);
-    setAccountsToShow(data.cuentas.slice(0, 5));
-  }
-
-  useEffect(() => {
-    getAtmDataFromAPI();
-  }, []);
 
   return (
     <Header>
@@ -52,7 +26,7 @@ export default function Home() {
         <h1>Consulta de Saldo</h1>
         <h2>Selecciona la Cuenta a Consultar</h2>
         <div>
-          {atmAccountsToShow?.map((account) => (
+          {atmData.cuentas?.map((account) => (
             <AccountButton
               key={account.number}
               accountNumber={account.number}
